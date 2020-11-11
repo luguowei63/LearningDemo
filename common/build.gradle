@@ -40,4 +40,5 @@ dependencies {
     implementation rootProject.ext.plugins.rxjava_adapter
     implementation rootProject.ext.plugins.rxlifecycle
     implementation rootProject.ext.plugins.logging
+    api rootProject.ext.plugins.multidex
 }

@@ -30,7 +30,6 @@ class RetrofitUtils {
                         .addConverterFactory(GsonConverterFactory.create())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                         .baseUrl(Constants.baseUrl).build()
-
                 }
                 return retrofit
             }
