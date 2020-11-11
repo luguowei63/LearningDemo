@@ -3,5 +3,11 @@ package com.lgw.android.common.http.utils
 /**
  *Created by lgw on 2020/11/10
  */
-class PermissionUtils {
+class RequestUtils {
+
+    companion object{
+
+    }
+
+
 }

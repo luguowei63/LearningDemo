@@ -33,10 +33,11 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation rootProject.ext.plugins.appcompat
-    implementation rootProject.ext.plugins.retrofit
+    api rootProject.ext.plugins.retrofit
     implementation rootProject.ext.plugins.material
     implementation rootProject.ext.plugins.ktx
     implementation rootProject.ext.plugins.gson
     implementation rootProject.ext.plugins.rxjava_adapter
     implementation rootProject.ext.plugins.rxlifecycle
+    implementation rootProject.ext.plugins.logging
 }
