@@ -21,6 +21,7 @@ ext {
             logging:"com.squareup.okhttp3:logging-interceptor:3.4.1",
             multidex: 'com.android.support:multidex:1.0.1',
             constraintlayout: 'androidx.constraintlayout:constraintlayout:2.0.4',
+            roomVersion:'2.2.5',
     ]
 
 
