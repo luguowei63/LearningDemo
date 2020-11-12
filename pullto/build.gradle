@@ -51,5 +51,7 @@ dependencies {
     implementation rootProject.ext.plugins.appcompat
     implementation rootProject.ext.plugins.material
     implementation rootProject.ext.plugins.constraintlayout
+    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$rootProject.ext.plugins.swipeRefresh"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.ext.plugins.recycleView"
     api project(path: ':base')
 }

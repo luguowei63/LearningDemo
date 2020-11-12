@@ -22,6 +22,8 @@ ext {
             multidex: 'com.android.support:multidex:1.0.1',
             constraintlayout: 'androidx.constraintlayout:constraintlayout:2.0.4',
             roomVersion:'2.2.5',
+            swipeRefresh:"1.2.0-alpha01",
+            recycleView:"1.1.0"
     ]
 
 
