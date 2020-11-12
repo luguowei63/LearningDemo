@@ -1,10 +1,13 @@
 package com.lgw.android.common.http.base;
 
 
-import com.lgw.android.common.http.utils.RxExceptionUtil;
+import android.widget.TextView;
+
 
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
+
+import static com.lgw.android.common.http.utils.RxExceptionUtilKt.exceptionHandler;
 
 /**
  * Created by lgw on 2020/11/10
@@ -20,11 +23,12 @@ public abstract  class BaseObserver<T> implements Observer<BaseResponse<T>> {
            onFailure(null,baseResponse.getErrMsg());
        }
 
+
     }
 
     @Override
     public void onError(@NonNull Throwable e) {
-        onFailure(e, RxExceptionUtil.INSTANCE.exceptionHandler(e));
+        onFailure(e, exceptionHandler(e));
     }
 
     public abstract void onSuccess(T t);

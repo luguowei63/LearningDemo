@@ -1,7 +1,5 @@
 package com.lgw.android.common.utils
 
 /**
- *Created by lgw on 2020/11/10
+ *Created by lgw on 2020/11/12
  */
-class FileUtils {
-}

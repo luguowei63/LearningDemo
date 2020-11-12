@@ -6,7 +6,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.lgw.android.base.R
 import com.lgw.android.base.interfaces.LifeCycleListener
-import com.lgw.android.common.http.utils.ClickUtils
+import com.lgw.android.common.utils.canGoClick
 
 /**
  *Created by lgw on 2020/11/11
@@ -33,7 +33,9 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     protected fun setTitle(title: String) {
-        findViewById<TextView>(R.id.tv_title)?.text = title
+     var view=   findViewById<TextView>(R.id.tv_title);
+        view?.text = title
+        view.isBold()
     }
 
     protected fun setBackClick() {
@@ -41,9 +43,12 @@ abstract class BaseActivity : AppCompatActivity() {
             onBackPressed()
         }
     }
+    fun TextView.isBold()=this.apply {
+        paint.isFakeBoldText=true
+    }
 
     protected fun canClick(): Boolean {
-        return ClickUtils.canClick()
+        return canGoClick()
     }
 
     protected abstract fun setLayoutId(): Int
@@ -111,6 +116,18 @@ abstract class BaseActivity : AppCompatActivity() {
             }
         }
     }
+
+    fun addLifeCycleListener(listener:LifeCycleListener?){
+       listener?.run { mLifeCycleListeners.add(this) }
+    }
+
+   fun removeLifeCycleListener(listener: LifeCycleListener?){
+       listener?.run { mLifeCycleListeners.remove(this) }
+   }
+
+
+
+
 
 
 }

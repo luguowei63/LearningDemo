@@ -9,7 +9,6 @@ import java.text.ParseException
 /**
  *Created by lgw on 2020/11/10
  */
-object RxExceptionUtil {
     fun exceptionHandler(e: Throwable): String {
         var errorMsg = "未知错误"
         e.let {
@@ -38,5 +37,3 @@ object RxExceptionUtil {
         return msg
     }
 
-
-}
