@@ -1,6 +1,5 @@
 package com.lgw.android.pullto.layoutmanager
 
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 /**
@@ -30,6 +29,6 @@ interface ILayoutManager {
     fun setLayoutManager(  recyclerView: RecyclerView? )
 
 
-    fun isScrollToBottom():Boolean
+    fun isScrollToBottom(itemCount:Int):Boolean
 
 }

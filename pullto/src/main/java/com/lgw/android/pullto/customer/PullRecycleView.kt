@@ -7,6 +7,8 @@ import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.lgw.android.pullto.R
+import com.lgw.android.pullto.adapter.BaseViewAdapter
+import com.lgw.android.pullto.layoutmanager.ILayoutManager
 
 
 /**
@@ -26,7 +28,8 @@ class PullRecycleView : FrameLayout, SwipeRefreshLayout.OnRefreshListener {
     private lateinit var recycleView: RecyclerView
 
     var onRecyclerRefreshListener: OnRecyclerRefreshListener? = null
-
+    private lateinit var layoutManager: ILayoutManager
+    private lateinit var adapter: BaseViewAdapter
 
     constructor(context: Context) : this(context, null)
 
@@ -45,6 +48,30 @@ class PullRecycleView : FrameLayout, SwipeRefreshLayout.OnRefreshListener {
         refreshLayout = findViewById(R.id.swipe_refresh_widget)
         refreshLayout.setOnRefreshListener(this)
         recycleView = findViewById(R.id.recycler_view)
+        recycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+                if (checkScrollToBottom()&&dy > 0) {
+                    checkIfCanLoadMore()
+                }
+            }
+        })
+    }
+
+
+
+
+
+
+
+
+
+    fun checkScrollToBottom(): Boolean {
+        return layoutManager.isScrollToBottom(adapter.itemCount)
+    }
+
+    fun checkIfCanLoadMore() {
+        //todo 判断是否能够上拉加载数据
     }
 
 
@@ -54,3 +81,5 @@ class PullRecycleView : FrameLayout, SwipeRefreshLayout.OnRefreshListener {
 
 
 }
+
+

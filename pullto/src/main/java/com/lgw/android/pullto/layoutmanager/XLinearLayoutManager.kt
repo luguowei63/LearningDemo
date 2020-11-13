@@ -33,8 +33,8 @@ class XLinearLayoutManager : LinearLayoutManager, ILayoutManager {
 
     }
 
-    override fun isScrollToBottom(): Boolean {
-        return this.findLastVisibleItemPosition()==this.itemCount-1
+    override fun isScrollToBottom(itemCount:Int): Boolean {
+        return this.findLastVisibleItemPosition()==itemCount-1
     }
 
 }
