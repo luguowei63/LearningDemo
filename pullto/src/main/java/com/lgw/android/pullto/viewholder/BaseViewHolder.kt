@@ -24,6 +24,11 @@ class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
     private var itemView: View = view
 
 
+    fun getConvertView(): View {
+        return itemView
+    }
+
+
     //------------------------
     //  MVVM 模式中涉及到数据更新的方法，将不会在使用
     //------------------------
@@ -56,6 +61,13 @@ class BaseViewHolder(view: View) : RecyclerView.ViewHolder(view) {
             return
         val view = getView<ImageView>(resId)
         Glide.with(mContext).load(imgSrc).into(view);
+    }
+
+
+    fun setVisibility(resId: Int, visible: Int) {
+        val view = getView<View>(resId)
+        view.visibility = visible
+
     }
 
 

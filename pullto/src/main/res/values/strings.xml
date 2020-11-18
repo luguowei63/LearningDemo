@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">pullto</string>
+    <string name="pullto_load_more_tip">上拉加载</string>
+    <string name="pullto_load_more_start">松手开始加载</string>
+    <string name="pullto_load_more_ing">正在加载</string>
+    <string name="pullto_load_more_done">加载完成</string>
 </resources>

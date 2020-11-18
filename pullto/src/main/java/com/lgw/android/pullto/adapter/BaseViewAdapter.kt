@@ -10,24 +10,31 @@ import com.lgw.android.pullto.viewholder.BaseViewHolder
 /**
  *Created by lgw on 2020/11/12
  */
-open abstract  class BaseViewAdapter<T>(context: Context, mutableList: MutableList<T>, layoutResId: Int) : RecyclerView.Adapter<BaseViewHolder>() {
+open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableList<T>, layoutResId: Int) : RecyclerView.Adapter<BaseViewHolder>() {
+    interface OnItemClickListener<I> {
+        fun onItemClick(item: I, position: Int)
+    }
+
+    interface OnItemLongClickListener<I> {
+        fun onItemLongClick(item: I, position: Int)
+    }
+    protected val mContext=context
+
     var dataList: MutableList<T> = mutableList
     var view: View = LayoutInflater.from(context).inflate(layoutResId, null)
-
-
-    interface  OnItemClickListener{
-        fun onItemClick(view: View,position: Int)
-    }
-
-    interface  OnItemLongClickListener{
-        fun onItemLongClick(view: View,position: Int)
-    }
-
+    var onItemClickListener: OnItemClickListener<T>? = null
+    var onItemLongClickListener: OnItemLongClickListener<T>? = null
 
 
     override fun getItemCount(): Int {
         return dataList.size
     }
+
+
+    override fun getItemId(position: Int): Long {
+        return position.toLong()
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         return convertViewHolder(view)
@@ -35,7 +42,7 @@ open abstract  class BaseViewAdapter<T>(context: Context, mutableList: MutableLi
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
         convertItemView(holder, position, dataList[position])
-        initItemClickListener()
+        initItemClickListener(holder, position, dataList[position])
     }
 
 
@@ -52,19 +59,26 @@ open abstract  class BaseViewAdapter<T>(context: Context, mutableList: MutableLi
     protected abstract fun convert(holder: BaseViewHolder, item: T)
 
 
+    private fun initItemClickListener(holder: BaseViewHolder, position: Int, item: T) {
+        onItemClickListener?.let {
+            holder.getConvertView().setOnClickListener(object : View.OnClickListener {
+                override fun onClick(v: View?) {
+                    onItemClickListener!!.onItemClick(item, position)
+                }
+            })
+        }
+        onItemLongClickListener?.let {
+            holder.getConvertView().setOnLongClickListener(object : View.OnLongClickListener {
 
+                override fun onLongClick(v: View?): Boolean {
+                    onItemLongClickListener!!.onItemLongClick(item, position)
+                    return true
+                }
+            })
+        }
 
-    private fun initItemClickListener(){
 
     }
-
-
-
-
-
-
-
-
 
 
 }
