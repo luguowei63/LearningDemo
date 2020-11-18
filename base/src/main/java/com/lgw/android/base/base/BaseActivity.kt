@@ -35,16 +35,12 @@ abstract class BaseActivity : AppCompatActivity() {
     protected fun setTitle(title: String) {
      var view=   findViewById<TextView>(R.id.tv_title);
         view?.text = title
-        view.isBold()
     }
 
     protected fun setBackClick() {
         findViewById<View>(R.id.btn_back)?.setOnClickListener {
             onBackPressed()
         }
-    }
-    fun TextView.isBold()=this.apply {
-        paint.isFakeBoldText=true
     }
 
     protected fun canClick(): Boolean {

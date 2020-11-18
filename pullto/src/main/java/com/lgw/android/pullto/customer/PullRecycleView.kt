@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.lgw.android.pullto.R
 import com.lgw.android.pullto.adapter.BaseViewAdapter
+import com.lgw.android.pullto.bean.ItemBean
 import com.lgw.android.pullto.layoutmanager.ILayoutManager
 
 
@@ -29,7 +30,7 @@ class PullRecycleView : FrameLayout, SwipeRefreshLayout.OnRefreshListener {
 
     var onRecyclerRefreshListener: OnRecyclerRefreshListener? = null
     private lateinit var layoutManager: ILayoutManager
-    private lateinit var adapter: BaseViewAdapter
+    private lateinit var adapter: BaseViewAdapter<ItemBean>
 
     constructor(context: Context) : this(context, null)
 

@@ -27,7 +27,7 @@ abstract class BaseView(context: Context, parentView: ViewGroup) : LifeCycleList
     }
 
 
-    constructor(context: Context, parentView: ViewGroup, vararg args: Any) {
+    constructor(context: Context, parentView: ViewGroup, vararg args: Any) :this(context,parentView){
         mContext = context
         processArguments(args)
         mParentView = parentView
