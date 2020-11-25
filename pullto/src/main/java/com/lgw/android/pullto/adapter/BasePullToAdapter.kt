@@ -10,70 +10,105 @@ import com.lgw.android.pullto.viewholder.BaseViewHolder
 /**
  *Created by lgw on 2020/11/12
  */
-class BasePullToAdapter<T>(context: Context, mutableList: MutableList<T>, layoutResId: Int) :
+open abstract class BasePullToAdapter<T>(
+    context: Context,
+    mutableList: MutableList<T>,
+    layoutResId: Int
+) :
     BaseViewAdapter<T>(context, mutableList, layoutResId) {
 
-
-
-    init {
-
+    interface OnLoadMoreListener {
+        fun onLoadMore()
     }
 
+    private var enableLoadMore = true
+    private var isShowLoadMoreFooter = false
+    private var isShowLoadDone = false
+    private var mEmptyEnable = false
+
+    protected var loadMoreListener: OnLoadMoreListener? = null
+
+
     companion object {
-        val VIEW_TYPE_LOAD_PULL = 100
-        val VIEW_TYPE_LOAD_START = 101
-        val VIEW_TYPE_LOAD_DONE = 102
-        val VIEW_TYPE_EMPTY_VIEW = 103
-        val VIEW_TYPE_ITEM = 104
+        const val VIEW_TYPE_LOAD_MORE = 100
+        const val VIEW_TYPE_LOAD_DONE = 101
+        const val VIEW_TYPE_EMPTY_VIEW = 102
+        const val VIEW_TYPE_ITEM = 103
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
         var viewHolder: BaseViewHolder
 
         when (viewType) {
-            VIEW_TYPE_LOAD_PULL -> {
-                val footView=LayoutInflater.from(mContext).inflate(R.layout.pullto_item_footer,parent,false);
-                viewHolder= BaseViewHolder(footView)
-                return viewHolder
-            }
-            VIEW_TYPE_LOAD_START -> {
-                val footView=LayoutInflater.from(mContext).inflate(R.layout.pullto_item_footer,parent,false);
-                viewHolder= BaseViewHolder(footView)
-                return viewHolder
-            }
-            VIEW_TYPE_LOAD_DONE -> {
-                val footView=LayoutInflater.from(mContext).inflate(R.layout.pullto_item_footer,parent,false);
-                viewHolder= BaseViewHolder(footView)
-                viewHolder.setVisibility(R.id.pb_bar, View.GONE)
-                return viewHolder
+            VIEW_TYPE_LOAD_MORE -> {
+                val footView = LayoutInflater.from(mContext)
+                    .inflate(R.layout.pullto_item_footer, parent, false);
+                viewHolder = BaseViewHolder(footView)
             }
 
-            VIEW_TYPE_EMPTY_VIEW -> {
-                val footView=LayoutInflater.from(mContext).inflate(R.layout.pullto_item_footer,parent,false);
-                viewHolder= BaseViewHolder(footView)
-                return viewHolder
+            VIEW_TYPE_LOAD_DONE -> {
+                val footView = LayoutInflater.from(mContext)
+                    .inflate(R.layout.pullto_item_load_done, parent, false);
+                viewHolder = BaseViewHolder(footView)
+                viewHolder.setVisibility(R.id.pb_bar, View.GONE)
             }
-            VIEW_TYPE_ITEM -> {
-                viewHolder= super.onCreateViewHolder(parent, viewType)
-                return viewHolder
+            VIEW_TYPE_EMPTY_VIEW -> {
+                val footView = LayoutInflater.from(mContext)
+                    .inflate(R.layout.pullto_empty_view, parent, false);
+                viewHolder = BaseViewHolder(footView)
+            }
+            else -> {
+                viewHolder = super.onCreateViewHolder(parent, viewType)
+
             }
         }
-
-
-
-
+        return viewHolder
     }
+
 
     override fun onBindViewHolder(holder: BaseViewHolder, position: Int) {
-        super.onBindViewHolder(holder, position)
+        when (getItemViewType(position)) {
+            VIEW_TYPE_LOAD_MORE -> {
+                loadMoreListener?.onLoadMore()
+            }
+            VIEW_TYPE_LOAD_DONE -> {
+            }
+            else ->
+                super.onBindViewHolder(holder, position)
+        }
     }
+
+
+    override fun getItemCount(): Int {
+        return getCount() + (if (enableLoadMore && isShowLoadMoreFooter) 1 else 0)
+    }
+
+
+    private fun getCount(): Int {
+        return if (dataList.size == 0) {
+            if (mEmptyEnable) 1 else 0
+        } else {
+            dataList.size
+        }
+    }
+
+    private fun isListEmpty(): Boolean {
+        return dataList.size == 0
+    }
+
 
     override fun getItemViewType(position: Int): Int {
-        return super.getItemViewType(position)
-    }
+        if (enableLoadMore && position == getCount()) {
+            return VIEW_TYPE_LOAD_MORE
+        }
+        if (isShowLoadDone && position == getCount()) {
+            return VIEW_TYPE_LOAD_DONE
+        }
+        if (isListEmpty()) {
+            return VIEW_TYPE_EMPTY_VIEW
+        }
 
-
-    override fun convert(holder: BaseViewHolder, item: T) {
+        return VIEW_TYPE_ITEM
     }
 
 

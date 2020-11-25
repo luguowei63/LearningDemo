@@ -10,7 +10,11 @@ import com.lgw.android.pullto.viewholder.BaseViewHolder
 /**
  *Created by lgw on 2020/11/12
  */
-open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableList<T>, layoutResId: Int) : RecyclerView.Adapter<BaseViewHolder>() {
+open abstract class BaseViewAdapter<T>(
+    context: Context,
+    mutableList: MutableList<T>,
+    layoutResId: Int
+) : RecyclerView.Adapter<BaseViewHolder>() {
     interface OnItemClickListener<I> {
         fun onItemClick(item: I, position: Int)
     }
@@ -18,7 +22,8 @@ open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableLis
     interface OnItemLongClickListener<I> {
         fun onItemLongClick(item: I, position: Int)
     }
-    protected val mContext=context
+
+    protected val mContext = context
 
     var dataList: MutableList<T> = mutableList
     var view: View = LayoutInflater.from(context).inflate(layoutResId, null)
@@ -77,7 +82,60 @@ open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableLis
             })
         }
 
+    }
 
+
+    protected fun removeItemAtIndex(position: Int): Boolean {
+        if (position > 0 && dataList.size > position) {
+            dataList.removeAt(position)
+            notifyItemRemoved(position)
+            return true
+        }
+
+        return false
+    }
+
+
+      fun insertItemAtIndex(position: Int,item: T):Boolean{
+        if (position>0&&dataList.size>position){
+            dataList.add(position,item)
+            notifyItemInserted(position)
+            return true
+        }
+        return false
+    }
+
+      fun replaceItemAtIndex(position: Int,item: T):Boolean{
+        if (position>0&&dataList.size>position){
+            dataList[position] = item
+            notifyItemChanged(position)
+            return true
+        }
+        return false
+    }
+
+      fun moveItemAtIndex(fromPosition: Int,toPosition: Int,fromItem: T,toItem: T):Boolean{
+        if (fromPosition>0&&dataList.size>toPosition&&toPosition>0&&dataList.size>toPosition){
+            dataList[fromPosition] = toItem
+            dataList[toPosition] = fromItem
+            notifyItemMoved(fromPosition,toPosition)
+            return true
+        }
+        return false
+    }
+
+     fun addAllData(list: MutableList<T>){
+         dataList.addAll(list)
+         notifyDataSetChanged()
+     }
+
+
+
+
+
+    protected fun clearAllData() {
+        dataList.clear()
+        notifyDataSetChanged()
     }
 
 
