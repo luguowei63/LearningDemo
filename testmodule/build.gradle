@@ -1,7 +1,10 @@
-plugins {
-    id 'com.android.library'
-    id 'kotlin-android'
+if (isModule.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
 }
+
+apply plugin: 'kotlin-android'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -27,8 +30,6 @@ android {
             }
         }
     }
-
-
     buildTypes {
         release {
             minifyEnabled false
@@ -45,12 +46,13 @@ android {
 }
 
 dependencies {
+
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation rootProject.ext.plugins.ktx
-    implementation rootProject.ext.plugins.appcompat
-    implementation rootProject.ext.plugins.material
-    implementation rootProject.ext.plugins.constraintlayout
-    implementation "androidx.swiperefreshlayout:swiperefreshlayout:$rootProject.ext.plugins.swipeRefresh"
-    implementation "androidx.recyclerview:recyclerview:$rootProject.ext.plugins.recycleView"
-    api project(path: ':base')
+    implementation 'androidx.core:core-ktx:1.3.2'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.google.android.material:material:1.2.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.+'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 }

@@ -21,13 +21,19 @@ open abstract class BasePullToAdapter<T>(
         fun onLoadMore()
     }
 
-    private var enableLoadMore = true
-    private var isShowLoadMoreFooter = false
-    private var isShowLoadDone = false
-    private var mEmptyEnable = false
+    interface OnEmptyViewClick {
+        fun onEmptyViewClick()
+    }
 
-    protected var loadMoreListener: OnLoadMoreListener? = null
+    var enableLoadMore = true
+    var isShowLoadMoreFooter = false
+    var isShowLoadDone = false
+    var mEmptyEnable = false
+    var emptyViewClick=true
 
+
+    var loadMoreListener: OnLoadMoreListener? = null
+    var onEmptyViewClick: OnEmptyViewClick? = null
 
     companion object {
         const val VIEW_TYPE_LOAD_MORE = 100
@@ -59,7 +65,6 @@ open abstract class BasePullToAdapter<T>(
             }
             else -> {
                 viewHolder = super.onCreateViewHolder(parent, viewType)
-
             }
         }
         return viewHolder
@@ -70,6 +75,11 @@ open abstract class BasePullToAdapter<T>(
         when (getItemViewType(position)) {
             VIEW_TYPE_LOAD_MORE -> {
                 loadMoreListener?.onLoadMore()
+            }
+            VIEW_TYPE_EMPTY_VIEW -> {
+                if (emptyViewClick) {
+                    onEmptyViewClick?.onEmptyViewClick()
+                }
             }
             VIEW_TYPE_LOAD_DONE -> {
             }

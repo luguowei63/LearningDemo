@@ -1,3 +1,4 @@
+include ':testmodule'
 include ':pullto'
 include ':common'
 include ':base'

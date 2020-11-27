@@ -10,11 +10,7 @@ import com.lgw.android.pullto.viewholder.BaseViewHolder
 /**
  *Created by lgw on 2020/11/12
  */
-open abstract class BaseViewAdapter<T>(
-    context: Context,
-    mutableList: MutableList<T>,
-    layoutResId: Int
-) : RecyclerView.Adapter<BaseViewHolder>() {
+open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableList<T>, layoutResId: Int) : RecyclerView.Adapter<BaseViewHolder>() {
     interface OnItemClickListener<I> {
         fun onItemClick(item: I, position: Int)
     }
@@ -51,7 +47,7 @@ open abstract class BaseViewAdapter<T>(
     }
 
 
-    protected fun convertViewHolder(view: View): BaseViewHolder {
+    private fun convertViewHolder(view: View): BaseViewHolder {
         return BaseViewHolder(view)
     }
 
@@ -66,20 +62,15 @@ open abstract class BaseViewAdapter<T>(
 
     private fun initItemClickListener(holder: BaseViewHolder, position: Int, item: T) {
         onItemClickListener?.let {
-            holder.getConvertView().setOnClickListener(object : View.OnClickListener {
-                override fun onClick(v: View?) {
-                    onItemClickListener!!.onItemClick(item, position)
-                }
-            })
+            holder.getConvertView().setOnClickListener {
+                onItemClickListener!!.onItemClick(item, position)
+            }
         }
         onItemLongClickListener?.let {
-            holder.getConvertView().setOnLongClickListener(object : View.OnLongClickListener {
-
-                override fun onLongClick(v: View?): Boolean {
-                    onItemLongClickListener!!.onItemLongClick(item, position)
-                    return true
-                }
-            })
+            holder.getConvertView().setOnLongClickListener {
+                onItemLongClickListener!!.onItemLongClick(item, position)
+                true
+            }
         }
 
     }
@@ -96,17 +87,17 @@ open abstract class BaseViewAdapter<T>(
     }
 
 
-      fun insertItemAtIndex(position: Int,item: T):Boolean{
-        if (position>0&&dataList.size>position){
-            dataList.add(position,item)
+    fun insertItemAtIndex(position: Int, item: T): Boolean {
+        if (position > 0 && dataList.size > position) {
+            dataList.add(position, item)
             notifyItemInserted(position)
             return true
         }
         return false
     }
 
-      fun replaceItemAtIndex(position: Int,item: T):Boolean{
-        if (position>0&&dataList.size>position){
+    fun replaceItemAtIndex(position: Int, item: T): Boolean {
+        if (position > 0 && dataList.size > position) {
             dataList[position] = item
             notifyItemChanged(position)
             return true
@@ -114,23 +105,20 @@ open abstract class BaseViewAdapter<T>(
         return false
     }
 
-      fun moveItemAtIndex(fromPosition: Int,toPosition: Int,fromItem: T,toItem: T):Boolean{
-        if (fromPosition>0&&dataList.size>toPosition&&toPosition>0&&dataList.size>toPosition){
+    fun moveItemAtIndex(fromPosition: Int, toPosition: Int, fromItem: T, toItem: T): Boolean {
+        if (fromPosition > 0 && dataList.size > toPosition && toPosition > 0 && dataList.size > toPosition) {
             dataList[fromPosition] = toItem
             dataList[toPosition] = fromItem
-            notifyItemMoved(fromPosition,toPosition)
+            notifyItemMoved(fromPosition, toPosition)
             return true
         }
         return false
     }
 
-     fun addAllData(list: MutableList<T>){
-         dataList.addAll(list)
-         notifyDataSetChanged()
-     }
-
-
-
+    fun addAllData(list: MutableList<T>) {
+        dataList.addAll(list)
+        notifyDataSetChanged()
+    }
 
 
     protected fun clearAllData() {
