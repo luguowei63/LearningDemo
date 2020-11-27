@@ -10,7 +10,8 @@ import com.lgw.android.pullto.viewholder.BaseViewHolder
 /**
  *Created by lgw on 2020/11/12
  */
-open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableList<T>, layoutResId: Int) : RecyclerView.Adapter<BaseViewHolder>() {
+open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableList<T>, val layoutResId: Int
+) : RecyclerView.Adapter<BaseViewHolder>() {
     interface OnItemClickListener<I> {
         fun onItemClick(item: I, position: Int)
     }
@@ -22,7 +23,7 @@ open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableLis
     protected val mContext = context
 
     var dataList: MutableList<T> = mutableList
-    var view: View = LayoutInflater.from(context).inflate(layoutResId, null)
+
     var onItemClickListener: OnItemClickListener<T>? = null
     var onItemLongClickListener: OnItemLongClickListener<T>? = null
 
@@ -38,6 +39,7 @@ open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableLis
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BaseViewHolder {
+        var view: View = LayoutInflater.from(mContext).inflate(layoutResId, null)
         return convertViewHolder(view)
     }
 

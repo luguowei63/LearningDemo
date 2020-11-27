@@ -7,7 +7,7 @@ import android.widget.FrameLayout
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.lgw.android.pullto.R
-import com.lgw.android.pullto.adapter.BaseViewAdapter
+import com.lgw.android.pullto.adapter.BasePullToAdapter
 import com.lgw.android.pullto.bean.ItemBean
 import com.lgw.android.pullto.layoutmanager.ILayoutManager
 
@@ -15,22 +15,28 @@ import com.lgw.android.pullto.layoutmanager.ILayoutManager
 /**
  *Created by lgw on 2020/11/12
  */
-class PullRecycleView : FrameLayout, SwipeRefreshLayout.OnRefreshListener {
+class PullRecycleView<T : ItemBean> : FrameLayout, SwipeRefreshLayout.OnRefreshListener,
+    BasePullToAdapter.OnLoadMoreListener, BasePullToAdapter.OnEmptyViewClick {
 
     interface OnRecyclerRefreshListener {
-
-        fun onRefresh()
-
+        fun onPullRefresh()
         fun onLoadMore()
     }
 
+    interface OnEmptyViewClick {
+        fun onEmptyViewClick()
+    }
 
     private lateinit var refreshLayout: SwipeRefreshLayout
     private lateinit var recycleView: RecyclerView
 
     var onRecyclerRefreshListener: OnRecyclerRefreshListener? = null
-    private lateinit var layoutManager: ILayoutManager
-    private lateinit var adapter: BaseViewAdapter<ItemBean>
+    var onEmptyViewClick: OnEmptyViewClick? = null
+
+    var isLoadMoreEnable = true
+    var isRefreshEnable = true
+    private  var adapter:BasePullToAdapter<T>?=null
+    private  var layoutManager:ILayoutManager?=null
 
     constructor(context: Context) : this(context, null)
 
@@ -48,11 +54,13 @@ class PullRecycleView : FrameLayout, SwipeRefreshLayout.OnRefreshListener {
         LayoutInflater.from(context).inflate(R.layout.pullto_layout_recycler, this, true)
         refreshLayout = findViewById(R.id.swipe_refresh_widget)
         refreshLayout.setOnRefreshListener(this)
+        refreshLayout.isEnabled = isRefreshEnable
         recycleView = findViewById(R.id.recycler_view)
+
         recycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                if (checkScrollToBottom()&&dy > 0) {
+                if (checkScrollToBottom() && dy > 0) {
                     checkIfCanLoadMore()
                 }
             }
@@ -60,25 +68,54 @@ class PullRecycleView : FrameLayout, SwipeRefreshLayout.OnRefreshListener {
     }
 
 
-
-
-
-
-
-
-
     fun checkScrollToBottom(): Boolean {
-        return layoutManager.isScrollToBottom(adapter.itemCount)
+        return layoutManager!!.isScrollToBottom(adapter!!.itemCount)
     }
 
-    fun checkIfCanLoadMore() {
-        //todo 判断是否能够上拉加载数据
+        fun checkIfCanLoadMore() {
+        if (isLoadMoreEnable){
+            adapter?.enableLoadMore
+        }
+
+    }
+    fun setLayoutManager(layoutManager: ILayoutManager) {
+        this.layoutManager=layoutManager
+        recycleView.layoutManager = layoutManager.getLayoutManager()
     }
 
+    fun setAdapter(adapter: BasePullToAdapter<T>) {
+        adapter.let {
+            this.adapter=it
+            recycleView.adapter = adapter
+            adapter.enableLoadMore = isLoadMoreEnable
+
+        }
+    }
 
     override fun onRefresh() {
-        onRecyclerRefreshListener?.apply { this.onRefresh() }
+        onRecyclerRefreshListener?.onPullRefresh()
     }
+
+    override fun onLoadMore() {
+        onRecyclerRefreshListener?.onLoadMore()
+    }
+
+    override fun onEmptyViewClick() {
+        onEmptyViewClick?.onEmptyViewClick()
+    }
+
+
+    fun finishRefresh(){
+       refreshLayout.isRefreshing=false
+    }
+
+
+    fun finishLoadMore(){
+        adapter?.isShowLoadMoreFooter=false
+
+    }
+
+
 
 
 }

@@ -32,16 +32,16 @@ abstract class BaseActivity : AppCompatActivity() {
 
     }
 
-    protected fun setTitle(title: String) {
-     var view=   findViewById<TextView>(R.id.tv_title);
-        view?.text = title
-    }
-
-    protected fun setBackClick() {
-        findViewById<View>(R.id.btn_back)?.setOnClickListener {
-            onBackPressed()
-        }
-    }
+//    protected fun setTitle(title: String) {
+//     var view=   findViewById<TextView>(R.id.tv_title);
+//        view?.text = title
+//    }
+//
+//    protected fun setBackClick() {
+//        findViewById<View>(R.id.btn_back)?.setOnClickListener {
+//            onBackPressed()
+//        }
+//    }
 
     protected fun canClick(): Boolean {
         return canGoClick()

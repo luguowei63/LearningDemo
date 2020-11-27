@@ -90,7 +90,7 @@ open abstract class BasePullToAdapter<T>(
 
 
     override fun getItemCount(): Int {
-        return getCount() + (if (enableLoadMore && isShowLoadMoreFooter) 1 else 0)
+        return getCount() + (if (enableLoadMore ) 1 else 0)
     }
 
 
@@ -108,7 +108,7 @@ open abstract class BasePullToAdapter<T>(
 
 
     override fun getItemViewType(position: Int): Int {
-        if (enableLoadMore && position == getCount()) {
+        if (enableLoadMore && isShowLoadMoreFooter&& position == getCount()) {
             return VIEW_TYPE_LOAD_MORE
         }
         if (isShowLoadDone && position == getCount()) {
