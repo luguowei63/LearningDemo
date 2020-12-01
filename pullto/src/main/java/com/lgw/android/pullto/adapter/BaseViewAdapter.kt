@@ -10,8 +10,7 @@ import com.lgw.android.pullto.viewholder.BaseViewHolder
 /**
  *Created by lgw on 2020/11/12
  */
-open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableList<T>, val layoutResId: Int
-) : RecyclerView.Adapter<BaseViewHolder>() {
+open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableList<T>, private val layoutResId: Int) : RecyclerView.Adapter<BaseViewHolder>() {
     interface OnItemClickListener<I> {
         fun onItemClick(item: I, position: Int)
     }
@@ -76,7 +75,9 @@ open abstract class BaseViewAdapter<T>(context: Context, mutableList: MutableLis
         }
 
     }
-
+    protected fun isListEmpty(): Boolean {
+        return dataList.size == 0
+    }
 
     protected fun removeItemAtIndex(position: Int): Boolean {
         if (position > 0 && dataList.size > position) {

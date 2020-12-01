@@ -31,12 +31,18 @@ class PullRecycleView<T : ItemBean> : FrameLayout, SwipeRefreshLayout.OnRefreshL
     private lateinit var recycleView: RecyclerView
 
     var onRecyclerRefreshListener: OnRecyclerRefreshListener? = null
-    var onEmptyViewClick: OnEmptyViewClick? = null
+        set(value) {
+            adapter?.let {
+                adapter!!.loadMoreListener = this
+            }
+            field = value
+        }
+    private var onEmptyViewClick: OnEmptyViewClick? = null
 
     var isLoadMoreEnable = true
     var isRefreshEnable = true
-    private  var adapter:BasePullToAdapter<T>?=null
-    private  var layoutManager:ILayoutManager?=null
+    private var adapter: BasePullToAdapter<T>? = null
+    private var layoutManager: ILayoutManager? = null
 
     constructor(context: Context) : this(context, null)
 
@@ -72,27 +78,28 @@ class PullRecycleView<T : ItemBean> : FrameLayout, SwipeRefreshLayout.OnRefreshL
         return layoutManager!!.isScrollToBottom(adapter!!.itemCount)
     }
 
-        fun checkIfCanLoadMore() {
-        if (isLoadMoreEnable){
-            adapter?.enableLoadMore
+    fun checkIfCanLoadMore() {
+        if (isLoadMoreEnable && !adapter!!.isShowLoadMoreFooter) {
+            adapter!!.isShowLoadMoreFooter = true
         }
 
     }
+
     fun setLayoutManager(layoutManager: ILayoutManager) {
-        this.layoutManager=layoutManager
+        this.layoutManager = layoutManager
         recycleView.layoutManager = layoutManager.getLayoutManager()
     }
 
     fun setAdapter(adapter: BasePullToAdapter<T>) {
         adapter.let {
-            this.adapter=it
-            recycleView.adapter = adapter
+            this.adapter = it
             adapter.enableLoadMore = isLoadMoreEnable
-
+            recycleView.adapter = adapter
         }
     }
 
     override fun onRefresh() {
+        adapter?.isShowLoadMoreFooter = false
         onRecyclerRefreshListener?.onPullRefresh()
     }
 
@@ -105,18 +112,15 @@ class PullRecycleView<T : ItemBean> : FrameLayout, SwipeRefreshLayout.OnRefreshL
     }
 
 
-    fun finishRefresh(){
-       refreshLayout.isRefreshing=false
+    fun finishRefresh() {
+        refreshLayout.isRefreshing = false
     }
 
 
-    fun finishLoadMore(){
-        adapter?.isShowLoadMoreFooter=false
+    fun finishLoadMore() {
+        adapter!!.loadMoreFinish()
 
     }
-
-
-
 
 }
 

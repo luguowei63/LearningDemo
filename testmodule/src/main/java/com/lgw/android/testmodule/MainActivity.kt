@@ -23,10 +23,11 @@ class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListe
             list.add(itemBean)
         }
         recycleView = findViewById(R.id.prv_recycle_view)
-        recycleView.onRecyclerRefreshListener = this
+
         adapter = RecycleViewAdapter(this, list, R.layout.test_recycle_item)
         recycleView.setAdapter(adapter)
         recycleView.setLayoutManager(layoutManager)
+        recycleView.onRecyclerRefreshListener = this
 
     }
 
@@ -43,12 +44,15 @@ class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListe
     }
 
     override fun onLoadMore() {
-        recycleView.finishLoadMore()
-        for (index in 0..15) {
-            var itemBean = ItemBean()
-            list.add(itemBean)
-        }
-        adapter.notifyDataSetChanged()
+        recycleView.postDelayed({
+            recycleView.finishLoadMore()
+            for (index in 0..15) {
+                var itemBean = ItemBean()
+                list.add(itemBean)
+            }
+            adapter.notifyDataSetChanged()
+        },2*1000)
+
 
     }
 }
