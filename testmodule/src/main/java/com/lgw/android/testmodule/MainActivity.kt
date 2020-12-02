@@ -2,7 +2,6 @@ package com.lgw.android.testmodule
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.lgw.android.common.utils.L
 import com.lgw.android.pullto.bean.ItemBean
 import com.lgw.android.pullto.customer.PullRecycleView
 import com.lgw.android.pullto.layoutmanager.XLinearLayoutManager
@@ -12,7 +11,7 @@ class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListe
     private lateinit var recycleView: PullRecycleView
     private val layoutManager = XLinearLayoutManager(this)
     private val list = mutableListOf<ItemBean>()
-    private lateinit var adapter :RecycleViewAdapter
+    private lateinit var adapter: RecycleViewAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,13 +44,13 @@ class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListe
 
     override fun onLoadMore() {
         recycleView.postDelayed({
-            recycleView.finishLoadMore()
+            recycleView.loadDone()
             for (index in 0..15) {
                 var itemBean = ItemBean()
                 list.add(itemBean)
             }
             adapter.notifyDataSetChanged()
-        },2*1000)
+        }, 2 * 1000)
 
 
     }

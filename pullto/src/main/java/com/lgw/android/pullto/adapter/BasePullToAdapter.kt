@@ -54,7 +54,6 @@ open abstract class BasePullToAdapter<T >(
             VIEW_TYPE_LOAD_DONE -> {
                 val footView = LayoutInflater.from(mContext).inflate(R.layout.pullto_item_load_done, parent, false);
                 viewHolder = BaseViewHolder(footView)
-                viewHolder.setVisibility(R.id.pb_bar, View.GONE)
             }
             VIEW_TYPE_EMPTY_VIEW -> {
                 val footView = LayoutInflater.from(mContext).inflate(R.layout.pullto_empty_view, parent, false);
@@ -121,7 +120,6 @@ open abstract class BasePullToAdapter<T >(
 
     fun  setLoadMoreDone( done:Boolean){
         isShowLoadDone=done
-        isShowLoadMoreFooter=!done
         notifyDataSetChanged()
     }
     fun  loadMoreFinish( ){

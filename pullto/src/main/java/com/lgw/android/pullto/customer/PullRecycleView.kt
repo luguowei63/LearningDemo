@@ -100,6 +100,7 @@ class PullRecycleView : FrameLayout, SwipeRefreshLayout.OnRefreshListener,
     }
 
     override fun onRefresh() {
+        adapter!!.setLoadMoreDone(false)
         adapter?.isShowLoadMoreFooter = false
         onRecyclerRefreshListener?.onPullRefresh()
     }
@@ -122,7 +123,10 @@ class PullRecycleView : FrameLayout, SwipeRefreshLayout.OnRefreshListener,
         adapter!!.loadMoreFinish()
         adapter!!.isShowLoadMoreFooter=true
     }
-
+    fun loadDone() {
+        adapter!!.setLoadMoreDone(true)
+        adapter?.isShowLoadMoreFooter = false
+    }
 }
 
 
