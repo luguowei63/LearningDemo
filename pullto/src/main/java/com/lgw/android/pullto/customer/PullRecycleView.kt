@@ -101,7 +101,6 @@ class PullRecycleView : FrameLayout, SwipeRefreshLayout.OnRefreshListener,
 
     override fun onRefresh() {
         adapter!!.setLoadMoreDone(false)
-        adapter?.isShowLoadMoreFooter = false
         onRecyclerRefreshListener?.onPullRefresh()
     }
 

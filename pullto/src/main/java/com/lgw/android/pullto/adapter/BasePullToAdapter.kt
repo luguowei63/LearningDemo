@@ -2,17 +2,14 @@ package com.lgw.android.pullto.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.lgw.android.common.utils.L
 import com.lgw.android.pullto.R
-import com.lgw.android.pullto.bean.ItemBean
 import com.lgw.android.pullto.viewholder.BaseViewHolder
 
 /**
  *Created by lgw on 2020/11/12
  */
-open abstract class BasePullToAdapter<T >(
+open abstract class BasePullToAdapter<T>(
     context: Context,
     mutableList: MutableList<T>,
     layoutResId: Int
@@ -28,6 +25,10 @@ open abstract class BasePullToAdapter<T >(
 
     var enableLoadMore = true
     var isShowLoadMoreFooter = true
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
     var isShowLoadDone = false
     var mEmptyEnable = false
     var emptyViewClick = true
@@ -48,15 +49,18 @@ open abstract class BasePullToAdapter<T >(
 
         when (viewType) {
             VIEW_TYPE_LOAD_MORE -> {
-                val footView = LayoutInflater.from(mContext).inflate(R.layout.pullto_item_footer, parent, false);
+                val footView = LayoutInflater.from(mContext)
+                    .inflate(R.layout.pullto_item_footer, parent, false);
                 viewHolder = BaseViewHolder(footView)
             }
             VIEW_TYPE_LOAD_DONE -> {
-                val footView = LayoutInflater.from(mContext).inflate(R.layout.pullto_item_load_done, parent, false);
+                val footView = LayoutInflater.from(mContext)
+                    .inflate(R.layout.pullto_item_load_done, parent, false);
                 viewHolder = BaseViewHolder(footView)
             }
             VIEW_TYPE_EMPTY_VIEW -> {
-                val footView = LayoutInflater.from(mContext).inflate(R.layout.pullto_empty_view, parent, false);
+                val footView = LayoutInflater.from(mContext)
+                    .inflate(R.layout.pullto_empty_view, parent, false);
                 viewHolder = BaseViewHolder(footView)
             }
             else -> {
@@ -89,20 +93,20 @@ open abstract class BasePullToAdapter<T >(
      */
 
     override fun getItemCount(): Int {
-         var itemCount=super.getItemCount()
+        var itemCount = super.getItemCount()
 
-        if (isListEmpty()){
-            itemCount =if (mEmptyEnable) 1 else 0
+        if (isListEmpty()) {
+            itemCount = if (mEmptyEnable) 1 else 0
         }
 
-        return itemCount + (if (enableLoadMore&& isShowLoadMoreFooter) 1 else 0)
+        return itemCount + (if (enableLoadMore && isShowLoadMoreFooter) 1 else 0)
     }
 
     /**
      * 获取最后一条的位置
      */
     private fun getLastItemPosition(): Int {
-        return  itemCount-1
+        return itemCount - 1
     }
 
     override fun getItemViewType(position: Int): Int {
@@ -118,13 +122,13 @@ open abstract class BasePullToAdapter<T >(
         return VIEW_TYPE_ITEM
     }
 
-    fun  setLoadMoreDone( done:Boolean){
-        isShowLoadDone=done
+    fun setLoadMoreDone(done: Boolean) {
+        isShowLoadDone = done
         notifyDataSetChanged()
     }
-    fun  loadMoreFinish( ){
-        isShowLoadMoreFooter=false
-        notifyDataSetChanged()
+
+    fun loadMoreFinish() {
+        isShowLoadMoreFooter = false
     }
 
 

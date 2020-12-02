@@ -33,7 +33,7 @@ class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListe
     override fun onPullRefresh() {
         list.clear()
         recycleView.finishRefresh()
-        for (index in 0..5) {
+        for (index in 0..15) {
             val itemBean = ItemBean()
             list.add(itemBean)
         }
