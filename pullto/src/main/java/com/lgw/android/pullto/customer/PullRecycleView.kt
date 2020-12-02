@@ -15,7 +15,7 @@ import com.lgw.android.pullto.layoutmanager.ILayoutManager
 /**
  *Created by lgw on 2020/11/12
  */
-class PullRecycleView<T : ItemBean> : FrameLayout, SwipeRefreshLayout.OnRefreshListener,
+class PullRecycleView : FrameLayout, SwipeRefreshLayout.OnRefreshListener,
     BasePullToAdapter.OnLoadMoreListener, BasePullToAdapter.OnEmptyViewClick {
 
     interface OnRecyclerRefreshListener {
@@ -41,7 +41,7 @@ class PullRecycleView<T : ItemBean> : FrameLayout, SwipeRefreshLayout.OnRefreshL
 
     var isLoadMoreEnable = true
     var isRefreshEnable = true
-    private var adapter: BasePullToAdapter<T>? = null
+    private var adapter: BasePullToAdapter<ItemBean>? = null
     private var layoutManager: ILayoutManager? = null
 
     constructor(context: Context) : this(context, null)
@@ -64,6 +64,7 @@ class PullRecycleView<T : ItemBean> : FrameLayout, SwipeRefreshLayout.OnRefreshL
         recycleView = findViewById(R.id.recycler_view)
 
         recycleView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
                 if (checkScrollToBottom() && dy > 0) {
@@ -90,7 +91,7 @@ class PullRecycleView<T : ItemBean> : FrameLayout, SwipeRefreshLayout.OnRefreshL
         recycleView.layoutManager = layoutManager.getLayoutManager()
     }
 
-    fun setAdapter(adapter: BasePullToAdapter<T>) {
+    fun setAdapter(adapter: BasePullToAdapter<ItemBean>) {
         adapter.let {
             this.adapter = it
             adapter.enableLoadMore = isLoadMoreEnable
@@ -119,7 +120,7 @@ class PullRecycleView<T : ItemBean> : FrameLayout, SwipeRefreshLayout.OnRefreshL
 
     fun finishLoadMore() {
         adapter!!.loadMoreFinish()
-
+        adapter!!.isShowLoadMoreFooter=true
     }
 
 }

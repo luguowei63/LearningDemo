@@ -5,8 +5,7 @@ package com.lgw.android.pullto.bean
  */
 class ItemBean {
 
-    var img :String?=null;
-    var title:String?=null
+    var id:Int=0
 
 
 

@@ -9,10 +9,10 @@ import com.lgw.android.pullto.layoutmanager.XLinearLayoutManager
 
 class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListener {
 
-    private lateinit var recycleView: PullRecycleView<ItemBean>
+    private lateinit var recycleView: PullRecycleView
     private val layoutManager = XLinearLayoutManager(this)
     private val list = mutableListOf<ItemBean>()
-    private lateinit var adapter :RecycleViewAdapter<ItemBean>
+    private lateinit var adapter :RecycleViewAdapter
 
 
     override fun onCreate(savedInstanceState: Bundle?) {

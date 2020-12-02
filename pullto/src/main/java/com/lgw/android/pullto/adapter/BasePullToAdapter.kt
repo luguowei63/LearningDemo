@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import com.lgw.android.common.utils.L
 import com.lgw.android.pullto.R
+import com.lgw.android.pullto.bean.ItemBean
 import com.lgw.android.pullto.viewholder.BaseViewHolder
 
 /**
  *Created by lgw on 2020/11/12
  */
-open abstract class BasePullToAdapter<T>(
+open abstract class BasePullToAdapter<T >(
     context: Context,
     mutableList: MutableList<T>,
     layoutResId: Int
@@ -125,6 +126,7 @@ open abstract class BasePullToAdapter<T>(
     }
     fun  loadMoreFinish( ){
         isShowLoadMoreFooter=false
+        notifyDataSetChanged()
     }
 
 
