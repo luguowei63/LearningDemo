@@ -39,7 +39,7 @@ public abstract class CommonApplication extends MultiDexApplication {
                 CommonAppInit commonAppInit = classInit.newInstance();
                 appInitList.add(commonAppInit);
                 commonAppInit.onCreate();
-
+                commonAppInit.setMApplication(this);
             } catch (IllegalAccessException | InstantiationException e) {
                 e.printStackTrace();
             }
