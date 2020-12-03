@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListe
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         for (index in 0..15) {
-            var itemBean = ItemBean()
+            val itemBean = ItemBean()
             list.add(itemBean)
         }
         recycleView = findViewById(R.id.prv_recycle_view)
@@ -46,7 +46,7 @@ class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListe
         recycleView.postDelayed({
             recycleView.loadDone()
             for (index in 0..15) {
-                var itemBean = ItemBean()
+                val itemBean = ItemBean()
                 list.add(itemBean)
             }
             adapter.notifyDataSetChanged()
