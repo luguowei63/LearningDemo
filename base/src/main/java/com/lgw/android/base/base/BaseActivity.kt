@@ -1,10 +1,9 @@
 package com.lgw.android.base.base
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import com.lgw.android.base.R
 import com.lgw.android.base.interfaces.LifeCycleListener
 import com.lgw.android.common.utils.canGoClick
 
@@ -113,17 +112,24 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
-    fun addLifeCycleListener(listener:LifeCycleListener?){
-       listener?.run { mLifeCycleListeners.add(this) }
+    fun addLifeCycleListener(listener: LifeCycleListener?) {
+        listener?.run { mLifeCycleListeners.add(this) }
     }
 
-   fun removeLifeCycleListener(listener: LifeCycleListener?){
-       listener?.run { mLifeCycleListeners.remove(this) }
-   }
+    fun removeLifeCycleListener(listener: LifeCycleListener?) {
+        listener?.run { mLifeCycleListeners.remove(this) }
+    }
 
 
+    inline fun <reified T> startActivity(context: Context) {
+        var intent = Intent(context, T::class.java)
+        context.startActivity(intent)
+    }
 
-
-
+    inline fun <reified T> startActivity(context: Context, block: Intent.() -> Unit) {
+        var intent = Intent(context, T::class.java)
+        intent.block()
+        context.startActivity(intent)
+    }
 
 }

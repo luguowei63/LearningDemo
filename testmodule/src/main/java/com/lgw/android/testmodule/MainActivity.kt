@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListe
             list.add(itemBean)
         }
         recycleView = findViewById(R.id.prv_recycle_view)
-
         adapter = RecycleViewAdapter(this, list, R.layout.test_recycle_item)
         recycleView.setAdapter(adapter)
         recycleView.setLayoutManager(layoutManager)
