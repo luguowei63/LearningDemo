@@ -6,8 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewParent
 import com.lgw.android.base.interfaces.LifeCycleListener
-import com.lgw.android.base.utils.isMyEmpty
-import com.lgw.android.base.utils.letterCount
 import com.lgw.android.common.utils.canGoClick
 
 /**

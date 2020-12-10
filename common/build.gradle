@@ -41,4 +41,7 @@ dependencies {
     api rootProject.ext.plugins.multidex
     api "com.github.bumptech.glide:glide:$rootProject.ext.plugins.glide"
     annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.ext.plugins.glide"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.ext.plugins.ktx_core"
+    api "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.ext.plugins.ktx_android"
+
 }

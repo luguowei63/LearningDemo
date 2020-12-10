@@ -3,7 +3,6 @@ package com.lgw.android.pullto.layoutmanager
 import android.content.Context
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.lgw.android.common.utils.L
 
 /**
  *Created by lgw on 2020/11/12
@@ -34,10 +33,8 @@ class XLinearLayoutManager : LinearLayoutManager, ILayoutManager {
 
     }
 
-    override fun isScrollToBottom(itemCount:Int): Boolean {
-        L("last   "+this.findLastVisibleItemPosition())
-        L("count  $itemCount")
-        return this.findLastVisibleItemPosition()==itemCount-1
+    override fun isScrollToBottom(itemCount: Int): Boolean {
+        return this.findLastVisibleItemPosition() == itemCount - 1
     }
 
 }

@@ -19,25 +19,35 @@ class RetrofitUtils {
          * 定义超时时间
          */
         private const val DEFAULT_TIME_OUT: Long = 10 * 1000
-        var retrofit: Retrofit? = null
+        private var retrofit: Retrofit? = null
+            @Synchronized
             get() {
-                if (retrofit == null) {
-                    var logIntercept = HttpLoggingInterceptor();
-                    var builder: OkHttpClient.Builder =
+                if (field == null) {
+                    val logIntercept = HttpLoggingInterceptor();
+                    val builder: OkHttpClient.Builder =
                         OkHttpClient.Builder().addInterceptor(logIntercept)
                     builder.connectTimeout(DEFAULT_TIME_OUT, TimeUnit.MILLISECONDS)
                     retrofit = Retrofit.Builder().client(builder.build())
                         .addConverterFactory(GsonConverterFactory.create())
+//                        .addCallAdapterFactory(CoroutineCallAdapterFactory())
                         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                        .baseUrl(Constants.baseUrl).build()
+                        .baseUrl(Constants.baseUrl)
+                        .build()
                 }
-                return retrofit
+                return field
             }
 
-        @Synchronized
-        fun get(): Retrofit {
+        /**
+         * 强行使用一次lazy函数
+         */
+//        val initRetrofitByLazy by lazy{
+//            retrofit
+//        }
+
+        fun getRetrofitInstance():Retrofit{
             return retrofit!!
         }
+
 
 
     }
