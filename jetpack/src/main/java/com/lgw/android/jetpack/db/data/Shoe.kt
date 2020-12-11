@@ -1,6 +1,7 @@
 package com.lgw.android.jetpack.db.data
 
 import androidx.room.ColumnInfo
+import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -13,12 +14,17 @@ data class Shoe(
     @ColumnInfo(name = "shoe_description") val description: String,
     @ColumnInfo(name = "shoe_price") val price: Float,
     @ColumnInfo(name = "shoe_brand") var brand: String,
-    @ColumnInfo(name = "shoe_imgUrl") val imageUrl: String
+    @ColumnInfo(name = "shoe_imgUrl") val imageUrl: String,
 ) {
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long = 0
+
+    @ColumnInfo(name = "str")
+    var str: String = "lgw"
     override fun toString(): String {
-        return "Shoe(name='$name', description='$description', price=$price, brand='$brand', imageUrl='$imageUrl', id=$id)"
+        return "Shoe(name='$name', description='$description', price=$price, brand='$brand', imageUrl='$imageUrl',  id=$id, str='$str')"
     }
+
+
 }

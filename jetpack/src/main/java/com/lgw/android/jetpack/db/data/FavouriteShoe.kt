@@ -1,13 +1,22 @@
 package com.lgw.android.jetpack.db.data
 
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
+import androidx.room.*
 import java.util.*
 
 /**
  *Created by lgw on 2020/12/10
  */
 
+@Entity(
+    tableName = "fav_shoe",
+    foreignKeys = [ForeignKey(
+        entity = Shoe::class,
+        parentColumns = ["id"],
+        childColumns = ["shoe_id"]
+    ), ForeignKey(entity = User::class, parentColumns = ["id"], childColumns = ["user_id"])
+    ],
+    indices = [Index("shoe_id")]
+)
 data class FavouriteShoe(
     @ColumnInfo(name = "shoe_id") val shoeId: Long // 外键 鞋子的id
     , @ColumnInfo(name = "user_id") val userId: Long // 外键 用户的id

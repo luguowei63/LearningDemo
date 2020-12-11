@@ -30,9 +30,12 @@ android {
         jvmTarget = '1.8'
     }
 
-    dataBinding{
-        enabled true
+    buildFeatures{
+        dataBinding = true
+        // for view binding :
+        // viewBinding = true
     }
+
 }
 
 dependencies {
@@ -45,4 +48,9 @@ dependencies {
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    def room_version = "2.2.0-rc01"
+
+    implementation "androidx.room:room-runtime:$room_version"
+// For Kotlin use kapt instead of annotationProcessor (注意这个注释)
+    kapt "androidx.room:room-compiler:$room_version"
 }
