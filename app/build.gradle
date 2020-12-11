@@ -31,9 +31,4 @@ android {
 
 dependencies {
     api project(path: ':pullto')
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation rootProject.ext.plugins.appcompat
-    implementation rootProject.ext.plugins.material
-    implementation rootProject.ext.plugins.ktx
-    implementation rootProject.ext.plugins.constraintlayout
 }
