@@ -23,7 +23,7 @@ abstract class BaseView(context: Context, parentView: ViewGroup) : LifeCycleList
 
     init {
         mContentView = LayoutInflater.from(mContext).inflate(setLayoutId(), mParentView, false)
-        init()
+        initObjcet()
     }
 
 
@@ -32,13 +32,13 @@ abstract class BaseView(context: Context, parentView: ViewGroup) : LifeCycleList
         processArguments(args)
         mParentView = parentView
         mContentView = LayoutInflater.from(mContext).inflate(setLayoutId(), mParentView, false)
-        init()
+        initObjcet()
     }
 
 
     protected fun processArguments(vararg args: Any) {}
 
-    protected abstract fun init()
+    protected abstract fun initObjcet()
 
 
     protected abstract fun setLayoutId(): Int
@@ -54,7 +54,7 @@ abstract class BaseView(context: Context, parentView: ViewGroup) : LifeCycleList
     }
 
     protected fun removeFromParent() {
-        var parent: ViewParent? = mContentView!!.parent
+        val parent: ViewParent? = mContentView!!.parent
         parent?.let {
             (it as ViewGroup).removeView(mContentView)
         }

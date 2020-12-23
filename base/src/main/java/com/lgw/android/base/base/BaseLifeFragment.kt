@@ -1,16 +1,20 @@
 package com.lgw.android.base.base
 
 import android.os.Bundle
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 
 /**
- *Created by lgw on 2020/11/11
+ *Created by lgw on 2020/12/15
  */
-open class BaseFragment :Fragment() {
+class BaseLifeFragment : BaseFragment() {
 
-
+    var  baseLifeCycle :BaseLifeCycle?=null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
+
+
+
+
+
+
 }

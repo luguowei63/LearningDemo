@@ -5,9 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import com.lgw.android.pullto.bean.ItemBean
 import com.lgw.android.pullto.customer.PullRecycleView
 import com.lgw.android.pullto.layoutmanager.XLinearLayoutManager
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListener {
 
@@ -30,11 +27,7 @@ class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListe
         recycleView.setLayoutManager(layoutManager)
         recycleView.onRecyclerRefreshListener = this
 
-
-        GlobalScope.launch (Dispatchers.Main){
-
-        }
-
+        lifecycle.addObserver(adapter)
 
 
     }
@@ -63,8 +56,9 @@ class MainActivity : AppCompatActivity(), PullRecycleView.OnRecyclerRefreshListe
     }
 
 
-
-
-
+    override fun onDestroy() {
+        super.onDestroy()
+        lifecycle.removeObserver(adapter)
+    }
 
 }

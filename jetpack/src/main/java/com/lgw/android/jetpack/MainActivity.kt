@@ -2,22 +2,27 @@ package com.lgw.android.jetpack
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.lgw.android.jetpack.db.AppDataBase
-import com.lgw.android.jetpack.db.RepositoryProvider
-import com.lgw.android.jetpack.db.data.Shoe
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LifecycleRegistry
+import com.lgw.android.common.utils.L
+import com.lgw.android.jetpack.lifecycle.UserPresenter
 
 class MainActivity : AppCompatActivity() {
+
+//    private var lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
+    private var userPresenter: UserPresenter = UserPresenter()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        L(lifecycle.toString())
+        lifecycle.addObserver(userPresenter)
+//        lifecycleRegistry.currentState = Lifecycle.State.CREATED
 
-        GlobalScope.launch(Dispatchers.Main) {
-            withContext(Dispatchers.IO) {
-                println(Thread.currentThread().name)
+//        GlobalScope.launch(Dispatchers.Main) {
+//            withContext(Dispatchers.IO) {
+//                println(Thread.currentThread().name)
 //                val list = arrayListOf<Shoe>()
 //                val shoe1 = Shoe("dunk 1", "Fashion shoe", 3200F, "NICK", "http://******.jpg")
 //                val shoe2 = Shoe("dunk 2", "Fashion shoe", 3200F, "NICK", "http://******.jpg")
@@ -50,17 +55,12 @@ class MainActivity : AppCompatActivity() {
 //                shoeDaoRepository.deleteShoe(shoe)
 //                println("${shoeDaoRepository.getAllShoes()}")
 
-
-
-
-
-
-
-
-
-
-
-            }
-        }
+//            }
+//        }
     }
+
+
+//    override fun getLifecycle(): Lifecycle {
+//        return lifecycleRegistry
+//    }
 }
