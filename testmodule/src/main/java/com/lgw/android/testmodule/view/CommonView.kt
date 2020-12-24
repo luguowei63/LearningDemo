@@ -144,11 +144,14 @@ class CommonView(context: Context, attributeSet: AttributeSet?) : View(context, 
             if (hours == 12) {
                 hours = 0
             }
+            if(secondsInHour==Day){
+                secondsInHour=0.toDouble()
+            }
             secondsInMinute++
             secondsInHour++
             //绘制秒针
             paint.color = Color.RED
-            val secondDegree = secondsInMinute * SECOND_DEGREE * 2 * Math.PI / 360
+            val secondDegree = Math.toRadians (secondsInMinute * SECOND_DEGREE )
             canvas.drawLine(
                 0f,
                 0f,
@@ -159,7 +162,7 @@ class CommonView(context: Context, attributeSet: AttributeSet?) : View(context, 
 
             //绘制分针
             val minuteDegree =
-                (secondsInMinute / MINUTE  * minutes + (minutes - 1) )* SECOND_DEGREE * 2 * Math.PI / 360
+               Math.toRadians (secondsInMinute / MINUTE  * minutes + (minutes - 1)*SECOND_DEGREE )
             if (minuteDegree!=0.toDouble()) {
                 paint.color = Color.GREEN
                 canvas.drawLine(
@@ -171,9 +174,8 @@ class CommonView(context: Context, attributeSet: AttributeSet?) : View(context, 
                 )
             }
             //绘制时针
-
             val hourDegree =
-                (secondsInHour / HOUR  * hours + (hours - 1) ) * HOUR_DEGREE* 2 * Math.PI / 360
+                Math.toRadians  (secondsInHour / HOUR  * hours + (hours - 1)*HOUR_DEGREE )
             if (hourDegree!=0.toDouble()) {
                 paint.color = Color.YELLOW
                 canvas.drawLine(
