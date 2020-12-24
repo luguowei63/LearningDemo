@@ -7,8 +7,11 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
+import com.lgw.android.common.utils.L
 import com.lgw.android.common.utils.getScreenHeight
 import com.lgw.android.common.utils.getScreenWidth
+import kotlin.math.cos
+import kotlin.math.sin
 
 /**
  *Created by lgw on 2020/12/23
@@ -21,12 +24,29 @@ class CommonView(context: Context, attributeSet: AttributeSet?) : View(context, 
     private val screenHeight = getScreenHeight(context as Activity)
     private val halfWidth = screenWidth / 2f
     private val halfHeight = screenHeight / 2f
+    private val RADIOUS = 400f
+
+    private val SECOND_LENGTH = 250f
+    private val MINUTE_LENGTH = 200f
+    private val HOUR_LENGTH = 150f
+    private val SECOND = 1
+    private val MINUTE = SECOND * 60.toDouble()
+    private val HOUR = 60 * MINUTE.toDouble()
+    private val Day = 12 * HOUR.toDouble()
+    private var secondsInMinute = 0.toDouble()
+    private var secondsInHour = 0.toDouble()
+    private var minutes = 1
+    private var hours = 1
+    private val SECOND_DEGREE = 6f
+    private val HOUR_DEGREE = 30f
+    var startCount = false
+
 
     init {
         paint.isAntiAlias = true
         paint.style = Paint.Style.STROKE
         paint.strokeWidth = 2f
-        paint.color = Color.RED
+        paint.color = Color.BLACK
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -46,37 +66,130 @@ class CommonView(context: Context, attributeSet: AttributeSet?) : View(context, 
 //
 //        canvas.drawBitmap(bitmap,halfWidth,halfHeight,paint)
 
-        canvas!!.save()
-        for (index in 0..10) {
-            canvas.drawRect(0f, 0f, 150f, 150f, paint)
-            canvas.translate(30f, 30f)
-        }
-        //恢复save前坐标轴
-        canvas.restore()
-
-        canvas.translate(0f, halfHeight)
+//        canvas!!.save()
+//        for (index in 0..10) {
+//            canvas.drawRect(0f, 0f, 150f, 150f, paint)
+//            canvas.translate(30f, 30f)
+//        }
+//        //恢复save前坐标轴
+//        canvas.restore()
+//
+//        canvas.translate(0f, halfHeight)
+//        canvas.save()
+//        for (index in 0..10) {
+//            canvas.drawRect(
+//                0f + index * 10,
+//                0f + index * 10,
+//                150f - index * 10,
+//                150f - index * 10,
+//                paint
+//            )
+//        }
+//
+//        canvas.restore()
+//
+//        canvas.translate(500f, 400f)
+        //绘制表盘
+        paint.color = Color.BLACK
+        canvas!!.drawCircle(halfWidth, halfHeight, RADIOUS, paint)
+        canvas.translate(halfWidth, halfHeight)
         canvas.save()
-        for (index in 0..10) {
-            canvas.drawRect(
-                0f + index * 10,
-                0f + index * 10,
-                150f - index * 10,
-                150f - index * 10,
+        //绘制时钟刻度
+        for (index in 0..12) {
+            paint.strokeWidth = 4f
+            paint.color = Color.BLACK
+            canvas.drawLine(300f, 0f, RADIOUS, 0f, paint)
+            canvas.rotate(HOUR_DEGREE)
+        }
+        //绘制分钟刻度
+        for (index in 0..60) {
+            paint.strokeWidth = 2f
+            paint.color = Color.BLACK
+            canvas.drawLine(350f, 0f, RADIOUS, 0f, paint)
+            canvas.rotate(SECOND_DEGREE)
+        }
+
+        canvas.restore()
+        canvas.rotate(-90f)
+        canvas.save()
+        if (!startCount) {
+            //绘制秒针
+            paint.color = Color.RED
+            canvas.drawLine(0f, 0f, SECOND_LENGTH, 0f, paint)
+            //绘制分针
+            canvas.restore()
+            canvas.save()
+            paint.color = Color.GREEN
+            canvas.drawLine(0f, 0f, MINUTE_LENGTH, 0f, paint)
+            //绘制时针
+            canvas.restore()
+            canvas.save()
+            paint.color = Color.YELLOW
+            canvas.drawLine(0f, 0f, HOUR_LENGTH, 0f, paint)
+
+
+            canvas.restore()
+        } else {
+            //处理秒针,分针,时针的转动逻辑
+            if (secondsInMinute == MINUTE) {
+                secondsInMinute = 0.toDouble()
+                minutes++
+            }
+            if (minutes == 60) {
+                minutes = 0
+                hours++
+            }
+            if (secondsInHour == HOUR) {
+                secondsInHour = 0.toDouble()
+            }
+            if (hours == 12) {
+                hours = 0
+            }
+            secondsInMinute++
+            secondsInHour++
+
+            canvas.save()
+            //绘制秒针
+            paint.color = Color.RED
+            val secondDegree = secondsInMinute * SECOND_DEGREE*2*Math.PI/360
+            canvas.drawLine(
+                0f,
+                0f,
+                (SECOND_LENGTH * cos(secondDegree)).toFloat(),
+                (SECOND_LENGTH * sin(secondDegree)).toFloat(),
                 paint
             )
+            L("stopX   " +  cos(secondDegree).toFloat())
+            L("stopY   " +  sin(secondDegree).toFloat())
+//            //绘制分针
+            canvas.restore()
+            canvas.save()
+            paint.color = Color.GREEN
+            val minuteDegree = secondsInMinute / MINUTE * SECOND_DEGREE*minutes*2*Math.PI/360
+
+            canvas.drawLine(
+                0f,
+                0f,
+                RADIOUS * sin(minuteDegree).toFloat(),
+                RADIOUS * cos(minuteDegree).toFloat(),
+                paint
+            )
+            //绘制时针
+            canvas.restore()
+            canvas.save()
+            paint.color = Color.YELLOW
+            val hourDegree = secondsInHour / HOUR*HOUR_DEGREE*hours*2*Math.PI/360
+            canvas.drawLine(
+                0f,
+                0f,
+                RADIOUS * sin(hourDegree).toFloat(),
+                RADIOUS * cos(hourDegree).toFloat(),
+                paint
+            )
+
+            canvas.restore()
         }
 
-        canvas.restore()
-
-        canvas.translate(500f, 400f)
-        canvas.drawCircle(300f, 300f, 300f, paint)
-        canvas.save()
-        canvas.translate(300f, 300f)
-        for (index in 0..12) {
-            canvas.rotate(30f)
-            canvas.drawLine(0f, 0f, 300f, 0f, paint)
-        }
-        canvas.restore()
 
     }
 
