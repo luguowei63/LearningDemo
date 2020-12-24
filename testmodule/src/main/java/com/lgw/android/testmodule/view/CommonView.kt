@@ -93,14 +93,16 @@ class CommonView(context: Context, attributeSet: AttributeSet?) : View(context, 
         paint.color = Color.BLACK
         canvas!!.drawCircle(halfWidth, halfHeight, RADIOUS, paint)
         canvas.translate(halfWidth, halfHeight)
-        canvas.save()
         //绘制时钟刻度
+        canvas.save()
         for (index in 0..12) {
             paint.strokeWidth = 4f
             paint.color = Color.BLACK
             canvas.drawLine(300f, 0f, RADIOUS, 0f, paint)
             canvas.rotate(HOUR_DEGREE)
         }
+        canvas.restore()
+        canvas.save()
         //绘制分钟刻度
         for (index in 0..60) {
             paint.strokeWidth = 2f
@@ -108,7 +110,6 @@ class CommonView(context: Context, attributeSet: AttributeSet?) : View(context, 
             canvas.drawLine(350f, 0f, RADIOUS, 0f, paint)
             canvas.rotate(SECOND_DEGREE)
         }
-
         canvas.restore()
         canvas.rotate(-90f)
         canvas.save()
@@ -126,8 +127,6 @@ class CommonView(context: Context, attributeSet: AttributeSet?) : View(context, 
             canvas.save()
             paint.color = Color.YELLOW
             canvas.drawLine(0f, 0f, HOUR_LENGTH, 0f, paint)
-
-
             canvas.restore()
         } else {
             //处理秒针,分针,时针的转动逻辑
@@ -147,11 +146,9 @@ class CommonView(context: Context, attributeSet: AttributeSet?) : View(context, 
             }
             secondsInMinute++
             secondsInHour++
-
-            canvas.save()
             //绘制秒针
             paint.color = Color.RED
-            val secondDegree = secondsInMinute * SECOND_DEGREE*2*Math.PI/360
+            val secondDegree = secondsInMinute * SECOND_DEGREE * 2 * Math.PI / 360
             canvas.drawLine(
                 0f,
                 0f,
@@ -159,38 +156,32 @@ class CommonView(context: Context, attributeSet: AttributeSet?) : View(context, 
                 (SECOND_LENGTH * sin(secondDegree)).toFloat(),
                 paint
             )
-            L("stopX   " +  cos(secondDegree).toFloat())
-            L("stopY   " +  sin(secondDegree).toFloat())
-//            //绘制分针
-            canvas.restore()
-            canvas.save()
-            paint.color = Color.GREEN
-            val minuteDegree = secondsInMinute / MINUTE * SECOND_DEGREE*minutes*2*Math.PI/360
 
-            canvas.drawLine(
-                0f,
-                0f,
-                RADIOUS * sin(minuteDegree).toFloat(),
-                RADIOUS * cos(minuteDegree).toFloat(),
-                paint
-            )
+            //绘制分针
+            val minuteDegree =
+                (secondsInMinute / MINUTE  * minutes + (minutes - 1) )* SECOND_DEGREE * 2 * Math.PI / 360
+            L("minuteDegree   $minuteDegree")
+                paint.color = Color.GREEN
+                canvas.drawLine(
+                    0f,
+                    0f,
+                    MINUTE_LENGTH * cos(minuteDegree).toFloat(),
+                    MINUTE_LENGTH * sin(minuteDegree).toFloat(),
+                    paint
+                )
             //绘制时针
-            canvas.restore()
-            canvas.save()
-            paint.color = Color.YELLOW
-            val hourDegree = secondsInHour / HOUR*HOUR_DEGREE*hours*2*Math.PI/360
-            canvas.drawLine(
-                0f,
-                0f,
-                RADIOUS * sin(hourDegree).toFloat(),
-                RADIOUS * cos(hourDegree).toFloat(),
-                paint
-            )
 
-            canvas.restore()
+            val hourDegree =
+                (secondsInHour / HOUR  * hours + (hours - 1) ) * HOUR_DEGREE* 2 * Math.PI / 360
+                paint.color = Color.YELLOW
+                canvas.drawLine(
+                    0f,
+                    0f,
+                    HOUR_LENGTH * cos(hourDegree).toFloat(),
+                    HOUR_LENGTH * sin(hourDegree).toFloat(),
+                    paint
+                )
         }
-
-
     }
 
 }
