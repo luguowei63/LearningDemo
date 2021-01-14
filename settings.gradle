@@ -1,5 +1,4 @@
 include ':jetpack'
-include ':coroutine'
 include ':testmodule'
 include ':pullto'
 include ':common'

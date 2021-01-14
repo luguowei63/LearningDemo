@@ -5,10 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".SecondActivity">
-    <com.lgw.android.testmodule.view.CommonView
+    <com.lgw.android.testmodule.view.SampleView
         android:id="@+id/ball_view"
         android:background="@color/white"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        tools:ignore="MissingConstraints" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

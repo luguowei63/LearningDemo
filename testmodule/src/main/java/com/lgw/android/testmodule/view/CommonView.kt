@@ -17,7 +17,9 @@ import kotlin.math.sin
  *Created by lgw on 2020/12/23
  */
 class CommonView(context: Context, attributeSet: AttributeSet?) : View(context, attributeSet) {
-    constructor(context: Context) : this(context, null)
+
+
+
 
     private val paint = Paint()
     private val screenWidth = getScreenWidth(context as Activity)
