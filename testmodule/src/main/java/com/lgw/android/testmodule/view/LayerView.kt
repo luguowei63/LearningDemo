@@ -42,7 +42,7 @@ class LayerView(context: Context, attrs: AttributeSet?) : View(context, attrs) {
         //画圆
         c3.drawBitmap(dst,0f,0f,null)
         //定义位图的运算模式
-        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC))
+        paint.xfermode = PorterDuffXfermode(PorterDuff.Mode.SRC)
 
        canvas!!.drawBitmap(dst,0f,0f,null)
     }
