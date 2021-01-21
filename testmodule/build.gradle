@@ -5,6 +5,7 @@ if (isModule.toBoolean()) {
 }
 
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -47,6 +48,9 @@ android {
 
 dependencies {
     api project(path: ':pullto')
+    implementation project(':apt-annotation')
+    implementation project(':apt-library')
+    kapt project(':apt-processor')
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'

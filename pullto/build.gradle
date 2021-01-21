@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
 }
+apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
     buildToolsVersion rootProject.ext.android.buildToolsVersion
@@ -35,5 +36,6 @@ android {
 dependencies {
     api "androidx.swiperefreshlayout:swiperefreshlayout:$rootProject.ext.plugins.swipeRefresh"
     api "androidx.recyclerview:recyclerview:$rootProject.ext.plugins.recycleView"
+
     api project(path: ':base')
 }

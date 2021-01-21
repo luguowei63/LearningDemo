@@ -29,20 +29,23 @@ class RoundView(context: Context, attributeSet: AttributeSet?) : View(context, a
     init {
         canvasMask.drawCircle(bitmapWidth / 2f, bitmapHeight / 2f, bitmapWidth / 2f, mPaint)
     }
+    override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec)
+        setMeasuredDimension(bitmapWidth,bitmapHeight)
+    }
+
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         // 保存画布
         // 先画一次原文字
-//        canvas.drawBitmap(mTextBitmap, 0, 0, mPaint);
-        // 保存画布
-        val sc = canvas!!.saveLayer(0f, 0f, width.toFloat(), height.toFloat(), null)
-        canvas.drawBitmap(bitmapAward, 0f, 0f, mPaint)
+//        val sc = canvas!!.saveLayer(0f, 0f, width.toFloat(), height.toFloat(), null)
+        canvas!!.drawBitmap(bitmapAward, 0f, 0f, mPaint)
         mPaint.xfermode = xfermode
 
         canvas.drawBitmap(bitmapMask, 0f, 0f, mPaint)
-        mPaint.xfermode = null
-        canvas.restoreToCount(sc)
+//        mPaint.xfermode = null
+//        canvas.restoreToCount(sc)
     }
 
 

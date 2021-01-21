@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-
+    api files ('/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/rt.jar')
     api "androidx.constraintlayout:constraintlayout:$rootProject.ext.plugins.constraintlayout"
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     api "androidx.appcompat:appcompat:$rootProject.ext.plugins.appcompat"
@@ -53,6 +53,6 @@ dependencies {
     api "androidx.room:room-runtime:$rootProject.ext.plugins.roomVersion"
     api "androidx.room:room-ktx:$rootProject.ext.plugins.roomVersion"
     kapt "androidx.room:room-compiler:$rootProject.ext.plugins.roomVersion"
-    //添加Kotlin反射jar包
-    api "org.jetbrains.kotlin:kotlin-reflect"
+    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+
 }

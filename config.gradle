@@ -36,7 +36,9 @@ ext {
             trasnVersion : "4.0.1",
             sweetVersion :"1.5.1",
             camerax_version : '1.0.0-alpha03',
-            lottieVersion :'2.7.0'
+            lottieVersion :'2.7.0',
+            javapoet :'1.11.1',
+            auto_service :'1.0-rc4',
     ]
 
 

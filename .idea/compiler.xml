@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="1.8" />
+    <bytecodeTargetLevel target="1.7">
+      <module name="LearningDemo.app" target="1.8" />
+      <module name="LearningDemo.apt-library" target="1.8" />
+      <module name="LearningDemo.base" target="1.8" />
+      <module name="LearningDemo.common" target="1.8" />
+      <module name="LearningDemo.jetpack" target="1.8" />
+      <module name="LearningDemo.pullto" target="1.8" />
+      <module name="LearningDemo.testmodule" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>

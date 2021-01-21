@@ -30,4 +30,6 @@ android {
 
 dependencies {
     api project(path: ':common')
+    api project(':apt-library')
+    kapt project(':apt-processor')
 }
