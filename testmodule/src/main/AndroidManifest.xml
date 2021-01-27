@@ -12,9 +12,30 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.LearningDemo"
         tools:ignore="HardcodedDebugMode">
-        <activity android:name=".SecondActivity">
+        <service
+            android:name=".service.PushService"
+            android:process=":push"
+            android:enabled="true"
+            android:exported="true"/>
 
-        </activity>
+        <activity android:name=".MessengerActivity" />
+
+        <service
+            android:name=".messenger.MessengerService"
+            android:enabled="true"
+            android:exported="false"
+            android:process=":remote">
+            <intent-filter>
+                <action android:name="com.lgw.android.testmodule.messenger.MessengerService" />
+            </intent-filter>
+        </service>
+
+        <activity
+            android:name=".ThirdActivity"
+            android:process=":lgw.1" />
+        <activity
+            android:name=".SecondActivity"
+            android:process=":lgw.2" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

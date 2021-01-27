@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.lgw.android.learn">
+    package="com.lgw.android.learn"
+    android:sharedUserId="@string/bottom_sheet_behavior"
+    android:sharedUserLabel="@string/bottom_sheet_behavior">
 
     <application
+        android:name=".AppContext"
         android:allowBackup="true"
+        android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:process="wqa.com.c"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:debuggable="true"
-        android:name=".AppContext"
         android:theme="@style/Theme.LearningDemo"
         tools:ignore="HardcodedDebugMode">
+        <activity
+            android:name=".ProcessActivity"
+            android:process=":lgw" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

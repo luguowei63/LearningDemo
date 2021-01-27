@@ -1,20 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
-    <TextView
-        android:id="@+id/tv_bind"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+    android:orientation="vertical">
 
-    <com.lgw.android.pullto.customer.PullRecycleView
-        android:id="@+id/prv_recycle_view"
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="368dp"
+        android:layout_height="50dp"
+        android:text="连接" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-         />
+        android:orientation="horizontal">
+
+        <EditText
+            android:id="@+id/et"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_weight="2" />
+
+        <Button
+            android:id="@+id/send"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:text="发送" />
+    </LinearLayout>
 
 </LinearLayout>
+
+
