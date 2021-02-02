@@ -1,7 +1,11 @@
 package com.lgw.android.testmodule
 
+import android.app.Service
+import android.content.ComponentName
 import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -24,6 +28,7 @@ class MainActivity : AppCompatActivity(){
     private  var btnSend:Button? = null
     private var et: EditText? = null
     private var isConnected = false
+    private lateinit var myInterface: IMyAidlInterface
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,13 +42,21 @@ class MainActivity : AppCompatActivity(){
             isConnected = true
         })
         btnSend!!.setOnClickListener {
-            if (!isConnected) {
-                Toast.makeText(this@MainActivity, "请连接", Toast.LENGTH_LONG).show()
-            }
-            if (et!!.text.toString().trim { it <= ' ' }.isEmpty()) {
-                Toast.makeText(this@MainActivity, "请输入", Toast.LENGTH_LONG).show()
-            }
-            PushManager.getInstance().sendString(et!!.text.toString())
+
+            val intent =Intent("com.lgw.android.aidl_server.MyService")
+            intent.`package`="com.lgw.android.aidl_server"
+           bindService(intent,OnServiceConnection(myInterface),Service.BIND_AUTO_CREATE)
+
+
+
+
+//            if (!isConnected) {
+//                Toast.makeText(this@MainActivity, "请连接", Toast.LENGTH_LONG).show()
+//            }
+//            if (et!!.text.toString().trim { it <= ' ' }.isEmpty()) {
+//                Toast.makeText(this@MainActivity, "请输入", Toast.LENGTH_LONG).show()
+//            }
+//            PushManager.getInstance().sendString(et!!.text.toString())
         }
 //        tvBind=findViewById(R.id.tv_bind)
 //        tvBind.setOnClickListener {
@@ -72,6 +85,25 @@ class MainActivity : AppCompatActivity(){
 
 
     }
+
+
+    class  OnServiceConnection(private var myInterface: IMyAidlInterface) :ServiceConnection{
+
+        override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
+
+             myInterface = IMyAidlInterface.Stub.asInterface(service)
+
+
+        }
+
+        override fun onServiceDisconnected(name: ComponentName?) {
+            TODO("Not yet implemented")
+        }
+
+    }
+
+
+
 
 //    override fun onPullRefresh() {
 //        list.clear()

@@ -54,5 +54,6 @@ dependencies {
     api "androidx.room:room-ktx:$rootProject.ext.plugins.roomVersion"
     kapt "androidx.room:room-compiler:$rootProject.ext.plugins.roomVersion"
     api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-
+    api "io.reactivex.rxjava2:rxjava:$rootProject.ext.plugins.rx_java"
+    api "io.reactivex.rxjava2:rxandroid:$rootProject.ext.plugins.rx_android"
 }

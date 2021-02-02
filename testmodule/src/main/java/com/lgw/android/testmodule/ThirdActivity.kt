@@ -10,3 +10,10 @@ class ThirdActivity : AppCompatActivity() {
         setContentView(R.layout.activity_third)
     }
 }
+
+
+
+
+
+
+

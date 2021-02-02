@@ -12,6 +12,8 @@ ext {
     plugins = [
             retrofit: '2.7.2',
             gson:'2.7.2',
+            rx_java:'2.2.3',
+            rx_android:'2.1.0',
             rxjava_adapter:'1.0.0',
             rxlifecycle:'2.2.2',
             glide:'4.11.0',

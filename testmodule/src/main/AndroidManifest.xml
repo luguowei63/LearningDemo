@@ -14,9 +14,9 @@
         tools:ignore="HardcodedDebugMode">
         <service
             android:name=".service.PushService"
-            android:process=":push"
             android:enabled="true"
-            android:exported="true"/>
+            android:exported="true"
+            android:process=":push" />
 
         <activity android:name=".MessengerActivity" />
 
@@ -30,18 +30,18 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".ThirdActivity"
-            android:process=":lgw.1" />
-        <activity
-            android:name=".SecondActivity"
-            android:process=":lgw.2" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".ThirdActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".SecondActivity"
+            android:process=":lgw.2" />
+        <activity android:name=".MainActivity">
+
         </activity>
     </application>
 
