@@ -15,16 +15,14 @@
         <service
             android:name=".service.PushService"
             android:enabled="true"
-            android:exported="true"
-            android:process=":push" />
+            android:exported="true" />
 
         <activity android:name=".MessengerActivity" />
 
         <service
             android:name=".messenger.MessengerService"
             android:enabled="true"
-            android:exported="false"
-            android:process=":remote">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.lgw.android.testmodule.messenger.MessengerService" />
             </intent-filter>
@@ -38,8 +36,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SecondActivity"
-            android:process=":lgw.2" />
+            android:name=".SecondActivity" />
         <activity android:name=".MainActivity">
 
         </activity>
