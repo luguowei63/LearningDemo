@@ -2,22 +2,15 @@ package com.lgw.android.jetpack
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LifecycleRegistry
 import com.lgw.android.common.utils.L
-import com.lgw.android.jetpack.lifecycle.UserPresenter
 
 class MainActivity : AppCompatActivity() {
 
 //    private var lifecycleRegistry: LifecycleRegistry = LifecycleRegistry(this)
-    private var userPresenter: UserPresenter = UserPresenter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        L(lifecycle.toString())
-        lifecycle.addObserver(userPresenter)
 //        lifecycleRegistry.currentState = Lifecycle.State.CREATED
 
 //        GlobalScope.launch(Dispatchers.Main) {

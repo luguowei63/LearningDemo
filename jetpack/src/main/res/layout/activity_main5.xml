@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="androidx.databinding.ObservableList" />
+
+        <import type="androidx.databinding.ObservableMap" />
+        <import type="com.lgw.android.jetpack.databinding.MainActivity5.ClickHandler" />
+        <variable
+            name="handler"
+            type="ClickHandler" />
+        <variable
+            name="list"
+            type="ObservableList&lt;String&gt;" />
+
+        <variable
+            name="map"
+            type="ObservableMap&lt;String,String&gt;" />
+
+        <variable
+            name="index"
+            type="int" />
+
+        <variable
+            name="key"
+            type="String" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".databinding.MainActivity5">
+
+        <TextView
+            style="@style/TextViewStyle"
+            android:text="@{list[index]}"
+            />
+        <TextView
+           style="@style/TextViewStyle"
+            android:text="@{map[key]}"/>
+
+        <Button
+          style="@style/BtnStyle"
+            android:onClick="@{(view123)->handler.onClick(view123,key)}"
+            android:text="改变数据"/>
+
+
+
+
+
+
+
+
+    </LinearLayout>
+</layout>

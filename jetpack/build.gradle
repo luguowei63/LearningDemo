@@ -27,13 +27,18 @@ android {
 
     buildFeatures{
         dataBinding = true
-        // for view binding :
-        // viewBinding = true
+    }
+    kapt {
+        generateStubs = true
     }
 
 }
 
 dependencies {
     api project(path: ':base')
+    implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    //版本要与gradle版本一致
+    kapt  "com.android.databinding:compiler:4.1.2"
 }
