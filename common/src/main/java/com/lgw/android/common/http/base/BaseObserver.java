@@ -4,6 +4,10 @@ package com.lgw.android.common.http.base;
 import android.widget.TextView;
 
 
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.List;
+
 import io.reactivex.Observer;
 import io.reactivex.annotations.NonNull;
 

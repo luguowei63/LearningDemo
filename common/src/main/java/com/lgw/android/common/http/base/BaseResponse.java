@@ -1,5 +1,8 @@
 package com.lgw.android.common.http.base;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * Created by lgw on 2020/11/10
  */
@@ -8,7 +11,11 @@ public class BaseResponse<T>  {
    private String errMsg;
    private T content;
 
-    public int getCode() {
+
+   private List arrayList;
+
+private HashMap<String,String>  map;
+public int getCode() {
         return code;
     }
 

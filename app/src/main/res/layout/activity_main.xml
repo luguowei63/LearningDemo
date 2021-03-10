@@ -7,17 +7,5 @@
     tools:viewBindingIgnore="true"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/tv_go_to_1"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:gravity="center"
-        android:text="TEST PROCESS" />
 
-    <TextView
-        android:id="@+id/tv_go_to_2"
-        android:layout_width="match_parent"
-        android:gravity="center"
-        android:layout_height="80dp"
-        android:text="TEST PROCESS 1" />
 </LinearLayout>

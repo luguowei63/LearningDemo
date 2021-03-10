@@ -1,12 +1,19 @@
 package com.lgw.android.common;
 
 import android.content.res.Configuration;
+import android.os.Handler;
 
 import androidx.annotation.NonNull;
 import androidx.multidex.MultiDexApplication;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Hashtable;
 import java.util.List;
+
+import dalvik.system.DexClassLoader;
+import dalvik.system.PathClassLoader;
+import okhttp3.OkHttpClient;
 
 /**
  * Created by lgw on 2020/11/11
@@ -16,7 +23,12 @@ public abstract class CommonApplication extends MultiDexApplication {
     private List<Class<? extends CommonAppInit>> classInitList = new ArrayList();
 
     private List<CommonAppInit> appInitList = new ArrayList();
-
+    PathClassLoader path;
+    DexClassLoader dexClassLoader;
+    Handler handler;
+    OkHttpClient okHttpClient;
+    Hashtable hashtable;
+    HashSet hashSet;
 
     @Override
     public void onCreate() {

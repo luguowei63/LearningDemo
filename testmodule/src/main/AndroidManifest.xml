@@ -13,9 +13,19 @@
         android:theme="@style/Theme.LearningDemo"
         tools:ignore="HardcodedDebugMode">
         <service
+            android:name=".service.MyService"
+            android:enabled="true"
+            android:exported="true"/>
+        <service android:name=".service.MyIntentService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.lgw.android.testmodule.service.MyIntentService" />
+            </intent-filter>
+        </service>
+        <service
             android:name=".service.PushService"
             android:enabled="true"
-            android:exported="true" />
+            android:exported="false" />
 
         <activity android:name=".MessengerActivity" />
 
@@ -28,17 +38,14 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ThirdActivity">
+        <activity android:name=".ThirdActivity" />
+        <activity android:name=".SecondActivity" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name=".SecondActivity" />
-        <activity android:name=".MainActivity">
-
         </activity>
     </application>
 

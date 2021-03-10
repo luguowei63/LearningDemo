@@ -11,14 +11,12 @@
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:process="wqa.com.c"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.LearningDemo"
         tools:ignore="HardcodedDebugMode">
         <activity
-            android:name=".ProcessActivity"
-            android:process=":lgw" />
+            android:name=".ProcessActivity" />
 
         <activity android:name=".MainActivity">
             <intent-filter>
