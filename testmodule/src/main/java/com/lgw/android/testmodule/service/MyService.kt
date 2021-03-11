@@ -2,42 +2,43 @@ package com.lgw.android.testmodule.service
 
 import android.app.Service
 import android.content.Intent
-import android.os.IBinder
+import android.os.*
+import android.util.Log
+import android.widget.Toast
 
 class MyService : Service() {
+
+    val code =1
+    val TAG="IPC"
     /**
-     * 绑定服务时才会调用
-     * 必须要实现的方法
+     * 创建一个送信人
      */
-    override fun onBind(intent: Intent): IBinder? {
-        return  null
+    private   val mMessenger =Messenger(object :Handler(){
+        override fun handleMessage(msg: Message) {
+            Log.e(TAG,"handleMessage")
+            var toClient=Message.obtain()
+            when(msg.what){
+                code->{
+                    //接收来自客户端的消息，并做处理
+                    var arg=msg.arg1
+                    Toast.makeText(applicationContext,arg , Toast.LENGTH_SHORT).show()
+                    toClient.arg1 = 1111111111
+                    try {
+                        //回复客户端消息
+                        msg.replyTo.send(toClient)
+                    }catch ( e:RemoteException){
+                        e.printStackTrace()
+                    }
+                }
+            }
+            super.handleMessage(msg)
+        }
+    })
+
+
+    override fun onBind(intent: Intent?): IBinder? {
+        return mMessenger.binder
     }
-
-
-    /**
-     * 首次创建服务时，系统调用此方法执行一次性设置程序（在调用 onStartCommand()或onBind() 之前）
-     * 如果服务已在运行，则不会调用此方法，该方法只会被调用一次
-     */
-    override fun onCreate() {
-        super.onCreate()
-    }
-
-    /**
-     * 每次通过StartService() 方法启动Service时都会被回调
-     */
-    override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        return super.onStartCommand(intent, flags, startId)
-    }
-
-    /**
-     * 服务销毁时的回调
-     */
-    override fun onDestroy() {
-        super.onDestroy()
-    }
-
-
-
 
 
 }

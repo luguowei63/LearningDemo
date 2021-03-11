@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.ServiceConnection
 import android.os.Bundle
 import android.os.IBinder
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -12,6 +13,8 @@ import androidx.appcompat.app.AppCompatActivity
 import com.lgw.android.pullto.bean.ItemBean
 import com.lgw.android.pullto.customer.PullRecycleView
 import com.lgw.android.pullto.layoutmanager.XLinearLayoutManager
+import com.lgw.android.testmodule.service.MyIntentService
+import com.lgw.android.testmodule.service.MyService
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
@@ -32,15 +35,15 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         main()
-//        btn = findViewById(R.id.btn)
-//        et = findViewById(R.id.et)
-//        btnSend = findViewById(R.id.send)
+        btn = findViewById(R.id.btn)
+        et = findViewById(R.id.et)
+        btnSend = findViewById(R.id.send)
 //        PushManager.getInstance().init(this)
-//        btn!!.setOnClickListener(View.OnClickListener {
-//
+        btn!!.setOnClickListener(View.OnClickListener {
+               main()
 //            PushManager.getInstance().connect()
 //            isConnected = true
-//        })
+        })
 //        btnSend!!.setOnClickListener {
 //
 //            val intent =Intent("com.lgw.android.aidl_server.MyService")
@@ -60,12 +63,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun main() {
         val intent= Intent("com.lgw.android.testmodule.service.MyIntentService")
-
         val bundle=Bundle()
-        bundle.putString("taskName","task1")
-
-        intent.setPackage("com.lgw.android.testmodule.service");
         intent.putExtras(bundle)
+        intent.setPackage("com.lgw.android.testmodule")
         startService(intent)
     }
 
