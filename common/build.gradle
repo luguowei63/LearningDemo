@@ -1,7 +1,6 @@
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -28,7 +27,7 @@ android {
 }
 
 dependencies {
-    api files ('/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/rt.jar')
+//    api files ('/Library/Java/JavaVirtualMachines/jdk1.8.0_271.jdk/Contents/Home/jre/lib/rt.jar')
     api "androidx.constraintlayout:constraintlayout:$rootProject.ext.plugins.constraintlayout"
     api "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     api "androidx.appcompat:appcompat:$rootProject.ext.plugins.appcompat"
@@ -56,4 +55,7 @@ dependencies {
     api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
     api "io.reactivex.rxjava2:rxjava:$rootProject.ext.plugins.rx_java"
     api "io.reactivex.rxjava2:rxandroid:$rootProject.ext.plugins.rx_android"
+    api 'com.squareup.leakcanary:leakcanary-android:1.6.2' // or 1.4-beta1
+//    api 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1' // or 1.4-beta1
+//    api 'com.squareup.leakcanary:leakcanary-android-no-op:1.3.1' // or 1.4-beta1
 }
