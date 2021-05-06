@@ -20,6 +20,7 @@
             <option value="$PROJECT_DIR$/base" />
             <option value="$PROJECT_DIR$/common" />
             <option value="$PROJECT_DIR$/jetpack" />
+            <option value="$PROJECT_DIR$/libNet" />
             <option value="$PROJECT_DIR$/pullto" />
             <option value="$PROJECT_DIR$/testmodule" />
           </set>

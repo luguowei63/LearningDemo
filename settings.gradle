@@ -1,3 +1,4 @@
+include ':libNet'
 include ':aidl-server'
 include ':apt-library'
 include ':apt-annotation'

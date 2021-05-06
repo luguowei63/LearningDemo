@@ -2,14 +2,15 @@
 <project version="4">
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel target="1.7">
-      <module name="LearningDemo.aidl-server" target="1.8" />
-      <module name="LearningDemo.app" target="1.8" />
-      <module name="LearningDemo.apt-library" target="1.8" />
-      <module name="LearningDemo.base" target="1.8" />
-      <module name="LearningDemo.common" target="1.8" />
-      <module name="LearningDemo.jetpack" target="1.8" />
-      <module name="LearningDemo.pullto" target="1.8" />
-      <module name="LearningDemo.testmodule" target="1.8" />
+      <module name="LearningDemo.aidl-server" target="11" />
+      <module name="LearningDemo.app" target="11" />
+      <module name="LearningDemo.apt-library" target="11" />
+      <module name="LearningDemo.base" target="11" />
+      <module name="LearningDemo.common" target="11" />
+      <module name="LearningDemo.jetpack" target="11" />
+      <module name="LearningDemo.libNet" target="11" />
+      <module name="LearningDemo.pullto" target="11" />
+      <module name="LearningDemo.testmodule" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>
